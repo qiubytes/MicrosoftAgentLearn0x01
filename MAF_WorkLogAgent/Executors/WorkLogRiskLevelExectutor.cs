@@ -25,7 +25,12 @@ namespace MAF_WorkLogAgent.Executors
             var response = await this._riskAgent.RunAsync(model.Content);
             string restext = response.Text.Replace("```json", "").Replace("```", "");
             var detectionResult = JsonSerializer.Deserialize<WorkLogRiskDto>(restext);
-            await context.YieldOutputAsync($"日志内容：{model.Content} 分类结果: {message.Type} 风险等级：{detectionResult.Risk_Level},风险评估原因:{detectionResult.Risk_Reason}");
+            model.Type = message.Type;
+            model.ClassifyReason = message.ClassifyReason;
+            model.Risk_Level = detectionResult.Risk_Level;
+            model.Risk_Reason = detectionResult.Risk_Reason;
+            await context.YieldOutputAsync(model);
+            //await context.YieldOutputAsync($"日志内容：{model.Content} 分类结果: {message.Type} 风险等级：{detectionResult.Risk_Level},风险评估原因:{detectionResult.Risk_Reason}");
         }
 
     }

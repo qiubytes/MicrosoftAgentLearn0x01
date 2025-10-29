@@ -25,9 +25,19 @@ namespace MAF_WorkLogAgent.Models
         [JsonPropertyName("worklog_type")]
         public string Type { get; set; }
         /// <summary>
+        /// 分类原因
+        /// </summary>
+        [JsonPropertyName("classify_reason")]
+        public string ClassifyReason { get; set; }
+        /// <summary>
         /// 风险等级
         /// </summary>
         [JsonPropertyName("risk_level")]
         public string Risk_Level { get; set; }
+        /// <summary>
+        /// 风险原因
+        /// </summary>
+        [JsonPropertyName("risk_reason")]
+        public string Risk_Reason { get; set; }
     }
 }
