@@ -15,13 +15,13 @@ namespace MAF_WorkLogAgent
     {
         static async Task Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            Console.WriteLine("工作日志分析工具，启动中...");
             var config = new ConfigurationBuilder()
          .AddUserSecrets<Program>()
          .Build();
 
             var apikey = config["apikey"];
-            Console.WriteLine($"Secret: {apikey}");
+            // Console.WriteLine($"Secret: {apikey}");
 
             IChatClient chatClient = new OpenAIClient(new ApiKeyCredential(apikey),
             new OpenAIClientOptions()
@@ -29,22 +29,26 @@ namespace MAF_WorkLogAgent
                 Endpoint = new Uri("https://api.siliconflow.cn/v1/"),
 
             })
-            .GetChatClient("deepseek-ai/DeepSeek-R1-0528-Qwen3-8B").AsIChatClient();
+            .GetChatClient("Qwen/Qwen2.5-7B-Instruct").AsIChatClient();
+            /* deepseek-ai/DeepSeek-R1-0528-Qwen3-8B
+             * THUDM/GLM-4-9B-0414
+             * Qwen/Qwen2.5-7B-Instruct
+             */
             string[] worklogarray = new string[] {
                 "完成了项目需求文档的编写，明确了各项功能需求和技术细节。",
                 "与张晓沟通系统需求。",
                 "修打印机，但是没修好。"
             };
-
+            Console.WriteLine("创建智能体");
             //创建智能体
             AIAgent worklogclassiftAgent = AgentFactory.GetWorkLogClassifyAgent(chatClient);
             AIAgent worklogriskAgent = AgentFactory.GetWorkLogRiskAgent(chatClient);
-
+            Console.WriteLine("创建流程执行器");
             //创建工作流程执行器
             var workLogClassifyExecutor = new WorkLogClassifyExecutor(worklogclassiftAgent);
             var workLogRiskLevelExectutor = new WorkLogRiskLevelExectutor(worklogriskAgent);
 
-            
+
 
             //Console.WriteLine("请输入工作日按回车输入空字符结束");
             for (int i = 0; i < worklogarray.Length; i++)
