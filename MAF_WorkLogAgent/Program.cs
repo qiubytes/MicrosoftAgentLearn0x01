@@ -109,6 +109,7 @@ namespace MAF_WorkLogAgent
                     foreach (var item in workLogModels.Where(w => w.Risk_Level == "低风险"))
                     {
                         Console.WriteLine($@"日志内容：{item.Content} 日志类型:{item.Type} 风险等级:{item.Risk_Level} 风险原因:{item.Risk_Reason}");
+                        Console.WriteLine();
                     }
                 }
                 else if (cmd == "2")
@@ -117,6 +118,7 @@ namespace MAF_WorkLogAgent
                     foreach (var item in workLogModels.Where(w => w.Risk_Level == "中风险"))
                     {
                         Console.WriteLine($@"日志内容：{item.Content} 日志类型:{item.Type} 风险等级:{item.Risk_Level} 风险原因:{item.Risk_Reason}");
+                        Console.WriteLine();
                     }
                 }
                 else if (cmd == "3")
@@ -125,6 +127,7 @@ namespace MAF_WorkLogAgent
                     foreach (var item in workLogModels.Where(w => w.Risk_Level == "高风险"))
                     {
                         Console.WriteLine($@"日志内容：{item.Content} 日志类型:{item.Type} 风险等级:{item.Risk_Level} 风险原因:{item.Risk_Reason}");
+                        Console.WriteLine();
                     }
                 }
             }
