@@ -22,5 +22,10 @@ namespace MAF_WorkLogAgent.Dtos
         /// </summary>
         [JsonPropertyName("worklog_type")]
         public string Type { get; set; }
+        /// <summary>
+        /// 分类原因
+        /// </summary>
+        [JsonPropertyName("classify_reason")]
+        public string ClassifyReason { get; set; }
     }
 }

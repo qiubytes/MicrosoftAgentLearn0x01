@@ -22,5 +22,10 @@ namespace MAF_WorkLogAgent.Dtos
         /// </summary>
         [JsonPropertyName("risk_level")]
         public string Risk_Level { get; set; }
+        /// <summary>
+        /// 风险原因
+        /// </summary>
+        [JsonPropertyName("risk_reason")]
+        public string Risk_Reason { get; set; }
     }
 }
