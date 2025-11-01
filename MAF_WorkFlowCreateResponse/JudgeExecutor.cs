@@ -21,7 +21,9 @@ namespace MAF_WorkFlowCreateResponse
         {
             if (_targetnum != message)
             {
-                await context.YieldOutputAsync("不相等");
+                Console.WriteLine($"输入值：{message}，目标值：{_targetnum}，不相等，要求重新输入");
+                await context.SendMessageAsync(CmdEnum.INPUT); //触发事件，要求输入
+                                                               // await context.YieldOutputAsync("不相等");//不输入，直接返回结果（不循环）
             }
             else
             {

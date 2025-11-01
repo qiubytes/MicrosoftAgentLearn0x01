@@ -32,6 +32,7 @@ namespace MAF_WorkFlowCreateResponse
 
             Workflow workflow = new WorkflowBuilder(numberRequestPort)
                .AddEdge(numberRequestPort, judgeExecutor)
+               .AddEdge(judgeExecutor, numberRequestPort) //循环输入
                .WithOutputFrom(judgeExecutor)
                .Build();
             await using StreamingRun handle = await InProcessExecution.StreamAsync(workflow, CmdEnum.INPUT);//传入枚举类型，事件里面输入
