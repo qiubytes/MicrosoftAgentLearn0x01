@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using OpenAI;
 using System.ClientModel;
 using System.ComponentModel;
-
+using ModelContextProtocol.Client;
 namespace MAF0x01
 {
     internal class Program
@@ -23,6 +23,16 @@ namespace MAF0x01
            .AddUserSecrets<Program>()
            .Build();
 
+            //MCP服务 https://www.modelscope.cn/mcp
+            await using var mcpClient = await McpClient.CreateAsync(new StdioClientTransport(new()
+            {
+                Name = "playwrightmcp",
+                Command = "npx",
+                Arguments = [
+                        "@playwright/mcp@latest"
+                    ],
+            }));
+            var mcpTools = await mcpClient.ListToolsAsync().ConfigureAwait(false);
             var apikey = config["apikey"];
             Console.WriteLine($"Secret: {apikey}");
             AIAgent agent = new OpenAIClient(new ApiKeyCredential(apikey),
@@ -31,9 +41,9 @@ namespace MAF0x01
                     Endpoint = new Uri("https://open.bigmodel.cn/api/paas/v4/"),
 
                 })
-                  // .GetChatClient("glm-4.5-flash")
-                  .GetChatClient("glm-4v-flash")
-                .CreateAIAgent(instructions: "聊天助手", tools: [AIFunctionFactory.Create(GetWeather)]);
+                  .GetChatClient("glm-4.5-flash")
+                // .GetChatClient("glm-4v-flash")
+                .CreateAIAgent(instructions: "聊天助手", tools: [AIFunctionFactory.Create(GetWeather), .. mcpTools.Cast<AITool>()]);
 
             AgentThread agentThread = agent.GetNewThread();
             // Console.WriteLine(await agent.RunAsync("讲一个关于吃水果的笑话"));
@@ -42,12 +52,13 @@ namespace MAF0x01
             //    Console.Write(update);
             //}
 
-            ChatMessage message = new(ChatRole.User, [
-                new TextContent("这个图片讲了什么"),
-                new UriContent("https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png", "image/png")
-            ]);
+            //识别图片内容
+            //ChatMessage message = new(ChatRole.User, [
+            //    new TextContent("这个图片讲了什么"),
+            //    new UriContent("https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png", "image/png")
+            //]);
 
-            Console.WriteLine(await agent.RunAsync(message, agentThread));
+            //Console.WriteLine(await agent.RunAsync(message, agentThread));
             while (true)
             {
                 ChatMessage message1 = new ChatMessage() { Role = ChatRole.User };
@@ -55,7 +66,7 @@ namespace MAF0x01
                 message1.Contents.Add(new TextContent(input));
                 if (input == "q") break;
 
-                Console.WriteLine(await agent.RunAsync(message, agentThread));
+                Console.WriteLine(await agent.RunAsync(message1, agentThread));
 
             }
             Console.ReadLine();
