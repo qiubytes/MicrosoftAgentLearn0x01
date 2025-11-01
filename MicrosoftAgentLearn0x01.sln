@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MAF_WorkFlow0x01", "MAF_Wor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MAF_WorkLogAgent", "MAF_WorkLogAgent\MAF_WorkLogAgent.csproj", "{21A282FB-DD7C-43FB-B9F2-D6B441D1E3B3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MAF_WorkFlowCreateResponse", "MAF_WorkFlowCreateResponse\MAF_WorkFlowCreateResponse.csproj", "{DC3474C9-A38F-4B0F-B5BC-6307575C8C8B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{21A282FB-DD7C-43FB-B9F2-D6B441D1E3B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21A282FB-DD7C-43FB-B9F2-D6B441D1E3B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21A282FB-DD7C-43FB-B9F2-D6B441D1E3B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC3474C9-A38F-4B0F-B5BC-6307575C8C8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC3474C9-A38F-4B0F-B5BC-6307575C8C8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC3474C9-A38F-4B0F-B5BC-6307575C8C8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC3474C9-A38F-4B0F-B5BC-6307575C8C8B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
